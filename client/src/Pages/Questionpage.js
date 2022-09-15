@@ -5,7 +5,7 @@ import { Container } from '@mui/system'
 import Widget from '../components/widget/Widget'
 import Questions from '../components/Question/Questions'
 
-const Home = () => {
+const Questionpage = () => {
   return (
     <Container maxWidth='lg'>
       <Grid container>
@@ -13,7 +13,8 @@ const Home = () => {
           <Sidebar />
         </Grid>
         <Grid item md={7}>
-          <Questions questionHead={"Top Questions"}/>
+          
+          <Questions questionHead={"All Questions"}/>
         </Grid>
         <Grid item md={3}>
           <Widget />
@@ -23,4 +24,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Questionpage

@@ -3,35 +3,36 @@ import React from 'react'
 import logo from "../../Assets/stack-overflow.png"
 import styled from 'styled-components'
 
-const SignUpCard = ({toggleCardFunc}) => {
-  return (
-    <SignUpCardWrapper>
-    <div className='authWrap'>
-        <div>
-            <p>Display Name</p>
-            <input type="text" />
-        </div>
-        <div>
-            <p>Email</p>
-            <input type="text" />
-        </div>
-        <div>
-            <p>Password</p>
-            <input type="text" />
-        </div>
-        <div>
-        <FormControlLabel control={<Checkbox />} label="Opt-in to receive occasional product updates, user research invitations, company announcements, and digests." style={{fontSize:"0.11rem"}} />
-        </div>
-        <div className='login-button'>
-            <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button>
-        </div>
-    </div>
-    <div className='login-signup'>
-        <p>Already have an account? <span style={{ cursor: "pointer" }} onClick={toggleCardFunc}>Log in</span></p>
-        <p> Are you an employer? <span> Sign up on Talent </span></p>
-    </div>
-</SignUpCardWrapper>
-  )
+const SignUpCard = ({ toggleCardFunc }) => {
+    return (
+        <SignUpCardWrapper>
+            <div className='authWrap'>
+                <div>
+                    <p>Display Name</p>
+                    <input type="text" />
+                </div>
+                <div>
+                    <p>Email</p>
+                    <input type="text" />
+                </div>
+                <div>
+                    <p>Password</p>
+                    <input type="text" />
+                </div>
+                <div className='tc'>
+                    <input type="checkbox" />
+                    <p>Opt-in to receive occasional product updates, user research invitations, company announcements, and digest.</p>
+                </div>
+                <div className='login-button'>
+                    <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button>
+                </div>
+            </div>
+            <div className='login-signup'>
+                <p>Already have an account? <span style={{ cursor: "pointer" }} onClick={toggleCardFunc}>Log in</span></p>
+                <p> Are you an employer? <span> Sign up on Talent </span></p>
+            </div>
+        </SignUpCardWrapper>
+    )
 }
 
 const SignUpCardWrapper = styled.div`
@@ -92,6 +93,14 @@ input{
     span{
         font-weight: 400;
         color:  hsl(209,100%,37.5%);
+    }
+}
+.tc{
+    display: flex;
+    align-items: flex-start;
+    gap: 0.2rem;
+    p{
+        font-size: 0.8rem;
     }
 }
 `

@@ -10,7 +10,7 @@ import UserLoginToggle from './UserLoginToggle';
 
 const Navbar = () => {
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const isLoginFunc = () => {
     setIsLogin(!isLogin);
   }
@@ -18,9 +18,11 @@ const Navbar = () => {
   return (
     <Nav>
       <Container maxWidth={'lg'} className="nav">
-        <div className='logo'>
-          <img src={logo} alt="logo" />
-        </div>
+        <Link to='/'>
+          <div className='logo'>
+            <img src={logo} alt="logo" />
+          </div>
+        </Link>
         <div className='About'>
           <p >About</p>
         </div>
@@ -42,9 +44,11 @@ const Navbar = () => {
                   <Button onClick={isLoginFunc} style={{ height: '2rem', background: " hsl(205,46%,92%)", color: "#2C5877", fontSize: "0.813rem", textTransform: "capitalize", border: "0.063rem solid #7AA7C7" }}>Login</Button>
                 </Link>
               </div>
-              <div className='signup'>
-                <Button style={{ height: "2rem", background: " #0074CC", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button>
-              </div>
+              <Link to='/auth'>
+                <div className='signup'>
+                  <Button style={{ height: "2rem", background: " #0074CC", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button>
+                </div>
+              </Link>
             </>}
         </div>
       </Container>

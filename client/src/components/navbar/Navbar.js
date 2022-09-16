@@ -59,6 +59,7 @@ const Navbar = () => {
 const Nav = styled.div`
 position: sticky;
 top:0;
+z-index: 1000;
 border-top: 0.18rem solid #f48225;
       background-color: #f8f9f9;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, rgba(0, 0, 0, 0.05) 0px 1px 4px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;

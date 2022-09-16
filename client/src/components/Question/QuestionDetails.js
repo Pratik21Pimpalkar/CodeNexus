@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
+import Answer from './Answer';
+import AnswerTextArea from './AnswerTextArea'
 const QuestionDetails = () => {
-    return (
+    return (<>
         <QuestionDetailsWrapper>
             <div>
                 <h3>Spring OAuth2 - JWT token working on server but not on localhost?</h3>
@@ -24,6 +25,9 @@ const QuestionDetails = () => {
                 </div>
             </div>
         </QuestionDetailsWrapper>
+        <Answer />
+        <AnswerTextArea/>
+        </>
     )
 }
 
@@ -39,18 +43,19 @@ padding: 2rem;
     align-items: center !important;
     width: 1.5rem !important;
     height: 1.5rem !important;
+    text-transform: uppercase !important;
 }
 .questionDetails{
 display: flex;
 flex-direction: column;
 
 svg{
-    margin: 0.2rem 0;
+  
     font-size: 4rem;
     color: #BABFC4;
 }
 span{
-    color: #6A737C;
+    color: #6A737C;text-align: center;
     font-size: 1.313rem;
 }
 }

@@ -9,7 +9,7 @@ const AskQuestion = () => {
             <Box style={{ background: "#F1F2F3", minHeight: "100vh", width: "100%" }}>
                 <Container maxWidth="lg">
                     <Typography variant='h5' style={{ paddingTop: "3rem", fontSize: "1.688rem" }}> Ask a public question</Typography>
-                    <Box style={{ background: "#fff", padding: '2rem',marginTop:'2rem',borderRadius:"0.18rem" ,boxShadow: "rgba(0, 0, 0, 0.06) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 2px 6px 0px, rgba(0, 0, 0, 0.09) 0px 3px 8px 0px"}}>
+                    <Box style={{ background: "#fff", padding: '2rem', marginTop: '2rem', borderRadius: "0.18rem", boxShadow: "rgba(0, 0, 0, 0.06) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 2px 6px 0px, rgba(0, 0, 0, 0.09) 0px 3px 8px 0px" }}>
                         <div>
                             <p style={{ fontSize: "0.938rem", fontWeight: "500" }}>Title</p>
                             <p style={{ fontSize: "0.758rem", color: " #3B4045" }}>Be specific and imagine you’re asking a question to another person</p>
@@ -45,8 +45,14 @@ input{
 .questionBody{
     margin-top: 1.2rem;
     textarea{
+        resize: none;
+        margin-top: 1rem;
         width:100%;
         min-height: 14rem;
+        &:hover,&:focus,&:active{
+    box-shadow: rgba(0, 116, 204, 0.15) 0px 0px 0px 4px;
+    outline: none;
+    border: 0.063rem solid  #59A4DE;}
     }
 }
 `

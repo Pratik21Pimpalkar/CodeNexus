@@ -3,31 +3,46 @@ import styled from 'styled-components'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Answer from './Answer';
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import AnswerTextArea from './AnswerTextArea'
+
 const QuestionDetails = () => {
-    return (<>
-        <QuestionDetailsWrapper>
-            <div>
-                <h3>Spring OAuth2 - JWT token working on server but not on localhost?</h3>
-            </div>
-            <div style={{ display: 'flex' }}>
-                <div className='questionDetails' ><ArrowDropUpIcon /><span>10</span><ArrowDropDownIcon /></div>
-                <div className="questionMainBody" style={{ flex: 1, position: 'relative' }}>
-                    <p style={{ marginTop: "1.1rem", fontSize: "0.89rem" }}> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt magnam laborum, omnis soluta accusantium excepturi veniam deserunt, sequi quidem aut et voluptatibus!</p>
-                    <span>ssss</span>
-                    <span>ssss</span>
-                    <span>ssss</span>
-                    <span>ssss</span>
-                    <div style={{ position: 'absolute', right: 0, bottom: 0, }}>
-                        <p style={{ fontWeight: "500", fontSize: "0.813rem" }}>Post month ago</p>
-                        <p style={{ fontWeight: "500", fontSize: "0.813rem", display: 'flex', alignItems: "center" }}> <span className="initials">X</span>Xavier</p>
-                    </div>
-                </div>
-            </div>
-        </QuestionDetailsWrapper>
-        <Answer />
-        <AnswerTextArea/>
+    const { id } = useParams()
+    const questionData = useSelector(state => state.questionReducer)
+
+    return (
+        <>
+            {questionData.data === null ? <p>Loading...</p> : <>
+                <QuestionDetailsWrapper>
+                    {questionData.data.filter(que => (que._id == id)).map(que => (
+                        <>
+                            <div key={que.id} style={{marginBottom: "1rem"}} >
+                                <div>
+                                    <h3>{que.questionTitle} </h3>
+                                </div>
+                                <div style={{ display: 'flex' }}>
+                                    <div className='questionDetails' ><ArrowDropUpIcon /><span>10</span><ArrowDropDownIcon /></div>
+                                    <div className="questionMainBody" style={{ flex: 1, position: 'relative' }}>
+                                        <p style={{ marginTop: "1.1rem", fontSize: "0.89rem" }}> {que.questionBody}</p>
+                                        {
+                                            que.questionTags.map((tag) => <span>{tag}</span>)}
+                                        <div style={{ position: 'absolute', right: 0, bottom: 0, }}>
+                                            <p style={{ fontWeight: "500", fontSize: "0.813rem" }}>{que.postedOn}</p>
+                                            <p style={{ fontWeight: "500", fontSize: "0.813rem", display: 'flex', alignItems: "center" }}> <span className="initials">{que.userPosted[0]}</span>{que.userPosted}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <Answer answerData={que.answer} />
+                        </>
+                    ))
+                    }
+                </QuestionDetailsWrapper>
+                <AnswerTextArea />
+            </>}
         </>
+
     )
 }
 
@@ -70,6 +85,7 @@ span{
     text-transform: lowercase;
     font-weight: 500;
     font-size: 0.75rem;
+    
     }
 }
 border-bottom: 0.061rem solid  #D6D9DC;

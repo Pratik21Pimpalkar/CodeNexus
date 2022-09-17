@@ -1,30 +1,53 @@
-import { Button, Checkbox, FormControlLabel } from '@mui/material'
-import React from 'react'
-import logo from "../../Assets/stack-overflow.png"
+import { Button } from '@mui/material'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { signup } from '../../redux/actions/authActions'
+import { useContext } from 'react'
+import { UserContext } from '../../context'
 
 const SignUpCard = ({ toggleCardFunc }) => {
+    const [ isLogin, setIsLogin ] = useContext(UserContext)
+    const [checked, setchecked] = useState(false)
+    const [user, setUser] = useState({});
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const handleCred = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        setUser({ ...user, [name]: value })
+    }
+    const handleLogin = async () => {
+        dispatch(signup(user))
+        setIsLogin(true);
+        navigate('/')
+    }
+
     return (
         <SignUpCardWrapper>
             <div className='authWrap'>
                 <div>
                     <p>Display Name</p>
-                    <input type="text" />
+                    <input type="text" onChange={handleCred} name="name" />
                 </div>
                 <div>
                     <p>Email</p>
-                    <input type="text" />
+                    <input type="text" onChange={handleCred} name="email" />
                 </div>
                 <div>
                     <p>Password</p>
-                    <input type="text" />
+                    <input type="text" onChange={handleCred} name="password" />
                 </div>
                 <div className='tc'>
-                    <input type="checkbox" />
+                    <input type="checkbox" name="tc" onChange={() => setchecked(!checked)} checked={checked} />
                     <p>Opt-in to receive occasional product updates, user research invitations, company announcements, and digest.</p>
                 </div>
                 <div className='login-button'>
-                    <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button>
+
+                    {(user.name !== '' && user.email !== '' && user.password !== '' && checked) ?
+                        <Button onClick={handleLogin} style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button> :
+                        <Button disabled style={{ marginTop: '1.5rem', height: "2.3rem", background: "#868686", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Sign Up</Button>}
                 </div>
             </div>
             <div className='login-signup'>

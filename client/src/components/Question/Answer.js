@@ -1,20 +1,26 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const Answer = () => {
+const Answer = ({ answerData }) => {
     return (
+        
         <AnswerWrapper>
-            <p> 2 <span>Answers</span></p>
-            <div className="questionMainBody" style={{ flex: 1 }}>
-                <p style={{ marginTop: "1.1rem", fontSize: "0.89rem" }}> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt magnam laborum, omnis soluta accusantium excepturi veniam deserunt, sequi quidem aut et voluptatibus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur voluptate tempora, qui impedit voluptatem molestias nisi iusto, nostrum, dolor quis ipsa?</p>
-
-                <div style={{ position: 'relative', height: "2rem" }}>
-                    <div style={{ position: "absolute", top: 0, right: 0 }}>
-                        <p style={{ fontWeight: "500", fontSize: "0.813rem" }}>Post month ago</p>
-                        <p style={{ fontWeight: "500", fontSize: "0.813rem", display: 'flex', alignItems: "center" }}> <span className="initials">X</span>Xavier</p>
-                    </div>
-                </div>
-            </div>
+            {
+                answerData.map((ans) => (
+                    <>
+                        <p> {ans.length} <span>Answers</span></p>
+                        <div className="questionMainBody" style={{ flex: 1 }}>
+                            <p style={{ marginTop: "1.1rem", fontSize: "0.89rem" }}> {ans.answerBody}</p>
+                            <div style={{ position: 'relative', height: "2rem" }}>
+                                <div style={{ position: "absolute", top: 0, right: 0 }}>
+                                    <p style={{ fontWeight: "500", fontSize: "0.813rem" }}>{ans.answeredOn}</p>
+                                    <p style={{ fontWeight: "500", fontSize: "0.813rem", display: 'flex', alignItems: "center" }}> <span className="initials">{ans.userAnswer[0]}</span>{ans.Answer}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                ))
+            }
         </AnswerWrapper>
     )
 }
@@ -35,7 +41,7 @@ padding: 2rem;
     }
     height: fit-content;
 }
-border-bottom: 0.061rem solid  #D6D9DC;
+border-top: 0.061rem solid  #D6D9DC;
 .initials{
     border-radius: 50% !important;
     background-color: purple !important;

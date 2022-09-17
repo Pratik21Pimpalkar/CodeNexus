@@ -4,8 +4,17 @@ import Sidebar from '../components/Sidebar/Sidebar'
 import { Container } from '@mui/system'
 import Widget from '../components/widget/Widget'
 import Questions from '../components/Question/Questions'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllQuestionAction } from '../redux/actions/questionAction'
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const questionList = useSelector(state => state.questionReducer)
+  useEffect(() => {
+    dispatch(getAllQuestionAction())
+  }, [dispatch])
+
   return (
     <Container maxWidth='lg'>
       <Grid container>
@@ -13,7 +22,7 @@ const Home = () => {
           <Sidebar />
         </Grid>
         <Grid item md={7}>
-          <Questions questionHead={"Top Questions"}/>
+          <Questions questionHead={"Top Questions"} questionList={questionList} />
         </Grid>
         <Grid item md={3}>
           <Widget />

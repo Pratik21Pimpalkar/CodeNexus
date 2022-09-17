@@ -10,7 +10,7 @@ const WidgetTags = () => {
             </div>
             <div className='widgetContent'>
                 {
-                    tags.map((tag) => <span>{tag}</span>)
+                    tags.map((tag,key) => <span key={key}>{tag}</span>)
                 }
             </div>
         </WidgetTagWrapper>

@@ -1,8 +1,32 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../../Assets/stack-overflow.png"
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { login } from '../../redux/actions/authActions'
+import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { UserContext } from '../../context'
+
 const Logincard = ({ toggleCardFunc }) => {
+    const [isLogin, setIsLogin] = useContext(UserContext)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [user, setUser] = useState({ email: "", password: "" });
+    const handleCred = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        setUser({ ...user, [name]: value })
+    }
+    const handleLogin = async () => {
+        const { data } = await axios.post(`${process.env.REACT_APP_API}login`, user)
+        if (data) {
+            dispatch(login(data))
+            setIsLogin(true);
+            navigate('/')
+        }
+    }
 
     return (
         <LogincardWrapper>
@@ -10,14 +34,18 @@ const Logincard = ({ toggleCardFunc }) => {
             <div className='authWrap'>
                 <div>
                     <p>Email</p>
-                    <input type="text" />
+                    <input type="text" name='email' onChange={handleCred} value={user.email} />
                 </div>
                 <div>
                     <p>Password</p>
-                    <input type="text" />
+                    <input type="text" name='password' onChange={handleCred} value={user.password} />
                 </div>
-                <div className='login-button'>
-                    <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Login</Button>
+                <div className='login-button'>{
+                    (user.email !== '' && user.password !== '') ?
+                        <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }} onClick={handleLogin}>Login</Button> :
+                        <Button disabled style={{ marginTop: '1.5rem', height: "2.3rem", background: "#868686", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Login</Button>
+                }
+
                 </div>
             </div>
             <div className='login-signup'>

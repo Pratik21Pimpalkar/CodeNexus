@@ -1,19 +1,21 @@
-import React from 'react'
+import React, {  useEffect } from 'react'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import logo from "../../Assets/logo-stackoverflow.png"
 import { Container } from '@mui/system'
 import SearchIcon from '@mui/icons-material/Search';
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
 import UserLoginToggle from './UserLoginToggle';
+import { currentUser } from '../../redux/actions/authActions'
 
 const Navbar = () => {
+  const dispatch = useDispatch()
+  var User = useSelector((state) => state.currentUserReducer)
 
-  const [isLogin, setIsLogin] = useState(false);
-  const isLoginFunc = () => {
-    setIsLogin(!isLogin);
-  }
+  useEffect(() => {
+    dispatch(currentUser(JSON.parse(localStorage.getItem('Profile'))))
+  }, [dispatch])
 
   return (
     <Nav>
@@ -37,11 +39,11 @@ const Navbar = () => {
             <SearchIcon />
             <input type="text" placeholder='Search...' />
           </div>
-          {isLogin ? <UserLoginToggle isLoginFunc={isLoginFunc} /> :
+          {User ? <UserLoginToggle /> :
             <>
               <div className='login'>
                 <Link to='/auth'>
-                  <Button onClick={isLoginFunc} style={{ height: '2rem', background: " hsl(205,46%,92%)", color: "#2C5877", fontSize: "0.813rem", textTransform: "capitalize", border: "0.063rem solid #7AA7C7" }}>Login</Button>
+                  <Button style={{ height: '2rem', background: " hsl(205,46%,92%)", color: "#2C5877", fontSize: "0.813rem", textTransform: "capitalize", border: "0.063rem solid #7AA7C7" }}>Login</Button>
                 </Link>
               </div>
               <Link to='/auth'>

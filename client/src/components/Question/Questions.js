@@ -1,28 +1,36 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-const Questions = ({ questionHead }) => {
+const Questions = ({ questionHead, questionList }) => {
+
     return (
         <QuestionWrapper>
-            <div className='queTitle'>
-                <p>{questionHead}</p>
-                <Link to='/askquestions'>  <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Ask Questions</Button></Link>
-            </div>
-            <div>
-                <p> 8 questions</p>
-            </div>
-            <div className='questions'>
-                <div className='votes'>
-                    <p> 0 <span>votes</span> </p>
-                    <p> 2 <span>answers</span></p>
+            {questionList.data == null ? <p>Loading...</p> :
+                <> <div className='queTitle'>
+                    <p>{questionHead}</p>
+                    <Link to='/askquestions'>  <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Ask Questions</Button></Link>
                 </div>
-                <div style={{ flex: 1, textAlign: "left" }}><p style={{ color: "#0074cc", cursor: 'pointer' }}>Why React JS is popular?</p>
-                    <div className='tagstime'>
-                        <span className='tags'>React JS</span> <span className='time'>posted a month ago</span>
+                    <div style={{ marginBottom: "0.7rem" }}>
+                        <p> {questionList.data.length} questions</p>
                     </div>
-                </div>
-            </div>
+                    {questionList.data.map((que) => (
+                        <div className='questions'>
+                            <div className='votes'>
+                                <p> {que?.upVote.length} <span>votes</span> </p>
+                                <p> {que?.answer.length} <span>answers</span></p>
+                            </div>
+                            <div style={{ flex: 1, textAlign: "left" }}><Link to={`/questions/${que._id}`}><p style={{ color: "#0074cc", cursor: 'pointer' }}>{que?.questionTitle}</p></Link>
+                                <div className='tagstime'><div style={{
+                                    width: '70%',textAlign: "left",paddingLeft:0
+                                }}>
+                                    {que?.questionTags.map((tag) => <span className='tags'>{tag}</span>)}</div>
+                                    <span className='time'>{que?.postedOn}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </>}
         </QuestionWrapper>
     )
 }
@@ -58,6 +66,7 @@ padding: 1rem;
    display: flex;
    align-items: center;
    position: relative;
+   
    .tags{
   display: inline-block;
   
@@ -75,7 +84,7 @@ padding: 1rem;
     color:#2C5877;
     border-radius: 0.188rem;
     padding: 0.313rem 0.375rem;
-    margin:  0.5rem 0 0.4rem  0;
+    margin: 0.5rem 0.6rem 0 0;
     text-transform: lowercase;
     background: #D0E3F1;
     font-weight: 500;

@@ -1,9 +1,27 @@
 import { Box, Button, Typography } from '@mui/material'
 import { Container } from '@mui/system'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import {  useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { askQuestionAction } from '../redux/actions/questionAction'
 
 const AskQuestion = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [title, setTitle] = useState({});
+    const [body, setBody] = useState({});
+    const [tags, setTags] = useState({});
+    const handleEnter = (e) => {
+        if ((e.key) === 'Enter')
+            setBody(body + "\n")
+    }
+    const User = useSelector((state) => state.currentUserReducer)
+    const postQuestion = async () => {
+        dispatch(askQuestionAction({ questionTitle: title, questionBody: body, questionTags: tags, userPosted: User.user.name }))
+        navigate('/')
+    }
+
     return (
         <AskQuestionWrapper>
             <Box style={{ background: "#F1F2F3", minHeight: "100vh", width: "100%" }}>
@@ -13,19 +31,23 @@ const AskQuestion = () => {
                         <div>
                             <p style={{ fontSize: "0.938rem", fontWeight: "500" }}>Title</p>
                             <p style={{ fontSize: "0.758rem", color: " #3B4045" }}>Be specific and imagine you’re asking a question to another person</p>
-                            <input type="text" className='questionText' />
+                            <input type="text" className='questionText' name="title" onChange={(e) => setTitle(e.target.value)} />
                         </div>
                         <div className='questionBody'>
                             <p style={{ fontSize: "0.938rem", fontWeight: "500" }}>Body</p>
                             <p style={{ fontSize: "0.758rem", color: " #3B4045" }}>Include all the information someone would need to answer your question</p>
-                            <textarea type="text" className='questionText' />
+                            <textarea type="text" className='questionText' name="body" onChange={(e) => setBody(e.target.value)} onKeyPress={handleEnter} />
                         </div>
                         <div>
                             <p style={{ fontSize: "0.938rem", fontWeight: "500" }}>Tags</p>
                             <p style={{ fontSize: "0.758rem", color: " #3B4045" }}>Add up to 5 tags to describe what your question is about</p>
-                            <input type="text" className='questionText' />
+                            <input type="text" className='questionText' name="tags" onChange={(e) => {
+                                setTags(e.target.value.split(" "),
+                                    console.log(tags))
+                            }
+                            } />
                         </div>
-                        <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Post your question</Button>
+                        <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }} onClick={postQuestion}>Post your question</Button>
                     </Box>
                 </Container>
             </Box>

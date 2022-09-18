@@ -17,7 +17,7 @@ const QuestionDetails = () => {
                 <QuestionDetailsWrapper>
                     {questionData.data.filter(que => (que._id == id)).map(que => (
                         <>
-                            <div key={que.id} style={{marginBottom: "1rem"}} >
+                            <div key={que.id} style={{ marginBottom: "1rem" }} >
                                 <div>
                                     <h3>{que.questionTitle} </h3>
                                 </div>
@@ -35,11 +35,11 @@ const QuestionDetails = () => {
                                 </div>
                             </div>
                             <Answer answerData={que.answer} />
+                            <AnswerTextArea que={que} />
                         </>
                     ))
                     }
                 </QuestionDetailsWrapper>
-                <AnswerTextArea />
             </>}
         </>
 
@@ -50,7 +50,7 @@ const QuestionDetailsWrapper = styled.div`
 padding: 2rem;
 .initials{
     border-radius: 50% !important;
-    background-color: purple !important;
+    background-color: #970d0d  !important;
     color:white !important;
     display: flex !important;
     padding: 0.2rem !important;

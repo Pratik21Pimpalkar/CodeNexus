@@ -1,16 +1,36 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import { postAnswer } from '../../redux/actions/questionAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-const AnswerTextArea = () => {
+
+const AnswerTextArea = ({ que }) => {
+    const navigate = useNavigate();
+    var User = useSelector(state => state.currentUserReducer)
+
+    const dispatch = useDispatch();
+    const [ans, setAns] = useState("")
+    const handleAnswer = () => {
+        if (User === null) {
+            window.alert("Login to answer the question");
+            navigate('/')
+            return;
+        }
+        if (ans === "") {
+            window.alert("Enter the answer before submitting    ");
+        } else {
+            dispatch(postAnswer({ id: que._id, noOfAnswer:que.answer.length+1,answerBody:ans,userAnswer:User.user.name}))
+        }
+    }
     return (
         <AnswerTextAreaWrapper>
             <div className='answerBody'>
                 <p style={{ fontSize: "1.238rem", fontWeight: "500" }}>Your Answer</p>
-
-                <textarea type="text" className='questionText' />
+                <textarea type="text" className='questionText' onChange={(e) => setAns(e.target.value)} value={ans} />
             </div>
-            <Button style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Post Your Answer</Button>
+            <Button onClick={handleAnswer} style={{ marginTop: '1.5rem', height: "2.3rem", background: "#0a95ff", boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)", color: "white", fontSize: "0.813rem", textTransform: "capitalize", }}>Post Your Answer</Button>
         </AnswerTextAreaWrapper>
     )
 }

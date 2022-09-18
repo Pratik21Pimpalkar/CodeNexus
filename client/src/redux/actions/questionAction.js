@@ -9,6 +9,7 @@ export const askQuestionAction = (questionData) => async (dispatch) => {
         dispatch(getAllQuestionAction())
     } catch (error) {
         dispatch({
+            type: "ASK_QUESTION",
             payload: { message: "Something went wrong" }
         })
     }
@@ -16,6 +17,17 @@ export const askQuestionAction = (questionData) => async (dispatch) => {
 export const getAllQuestionAction = () => async (dispatch) => {
     try {
         const { data } = await axios.get(`${process.env.REACT_APP_API}getquestion`)
+        var hours = 1; // to clear the localStorage after 1 hour
+        // (if someone want to clear after 8hrs simply change hours=8)
+        var now = new Date().getTime();
+        var setupTime = localStorage.getItem('setupTime');
+        if (setupTime == null) {
+            localStorage.setItem('setupTime', now)
+        } else {
+            if (now - setupTime > hours * 60 * 60 * 1000) {
+                localStorage.clear()
+            }
+        }
         dispatch({
             type: "GET_ALL_QUESTION",
             payload: data
@@ -23,7 +35,23 @@ export const getAllQuestionAction = () => async (dispatch) => {
 
     } catch (error) {
         dispatch({
+            type: "GET_ALL_QUESTION",
             payload: { message: "Something went wrong" }
         })
     }
+}
+
+export const postAnswer = (answerData) => async (dispatch) => {
+    try {
+        const { id, noOfAnswer, answerBody, userAnswer } = answerData
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}postanswer/${id}`, { id, noOfAnswer, answerBody, userAnswer })
+        dispatch({
+            type: "POST_ANSWER",
+            payload: data
+        })
+        dispatch(getAllQuestionAction());
+    } catch (error) {
+        console.log(error);
+    }
+
 }

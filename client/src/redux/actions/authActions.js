@@ -1,10 +1,11 @@
 import axios from 'axios'
+
 export const login = (data) => (dispatch) => {
     try {
         dispatch({ type: "AUTH", data })
         dispatch(currentUser(JSON.parse(localStorage.getItem('Profile'))))
     } catch (error) {
-        dispatch({ message: "Something went wrong" })
+        dispatch({ type: "AUTH",message: "Something went wrong" })
     }
 
 }
@@ -16,7 +17,7 @@ export const signup = (user) => async (dispatch) => {
         dispatch({ type: "AUTH", data })
         dispatch(currentUser(JSON.parse(localStorage.getItem('Profile'))))
     } catch (error) {
-        dispatch({ message: "Something went wrong" })
+        dispatch({type: "AUTH", message: "Something went wrong" })
     }
 
 }

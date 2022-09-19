@@ -18,7 +18,7 @@ const AskQuestion = () => {
     }
     const User = useSelector((state) => state.currentUserReducer)
     const postQuestion = async () => {
-        dispatch(askQuestionAction({ questionTitle: title, questionBody: body, questionTags: tags, userPosted: User.user.name }))
+        dispatch(askQuestionAction({ questionTitle: title, questionBody: body, questionTags: tags, userPosted: User.user.name ,userId: User.user._id}))
         navigate('/')
     }
 

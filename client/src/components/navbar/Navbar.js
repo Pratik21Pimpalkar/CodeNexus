@@ -1,4 +1,4 @@
-import React, {  useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import logo from "../../Assets/logo-stackoverflow.png"
@@ -109,5 +109,16 @@ border-top: 0.18rem solid #f48225;
         gap:0.3rem;
       }
     }
+    @media screen and (max-width:400px) {
+      .nav{ 
+        gap: 0.2rem !important;
+ 
+      .logo{
+        img{
+          width: 8rem;
+        }
+      }    }
+    }
+    
       `
 export default Navbar

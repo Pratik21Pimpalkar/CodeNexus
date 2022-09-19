@@ -18,13 +18,13 @@ const Home = () => {
   return (
     <Container maxWidth='lg'>
       <Grid container>
-        <Grid item md={2}>
+        <Grid item md={2} xs={3} >
           <Sidebar />
         </Grid>
-        <Grid item md={7}>
+        <Grid item md={7} xs={9}>
           <Questions questionHead={"Top Questions"} questionList={questionList} />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={3} xs={12}>
           <Widget />
         </Grid>
       </Grid>

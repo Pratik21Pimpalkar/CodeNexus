@@ -17,7 +17,7 @@ export const askQuestionAction = (questionData) => async (dispatch) => {
 export const getAllQuestionAction = () => async (dispatch) => {
     try {
         const { data } = await axios.get(`${process.env.REACT_APP_API}getquestion`)
-        var hours = 1; // to clear the localStorage after 1 hour
+        var hours = 0.5; // to clear the localStorage after 1 hour
         // (if someone want to clear after 8hrs simply change hours=8)
         var now = new Date().getTime();
         var setupTime = localStorage.getItem('setupTime');
@@ -43,8 +43,8 @@ export const getAllQuestionAction = () => async (dispatch) => {
 
 export const postAnswer = (answerData) => async (dispatch) => {
     try {
-        const { id, noOfAnswer, answerBody, userAnswer } = answerData
-        const { data } = await axios.patch(`${process.env.REACT_APP_API}postanswer/${id}`, { id, noOfAnswer, answerBody, userAnswer })
+        const { id, userId, noOfAnswer, answerBody, userAnswer } = answerData
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}postanswer/${id}`, { userId, noOfAnswer, answerBody, userAnswer })
         dispatch({
             type: "POST_ANSWER",
             payload: data
@@ -54,4 +54,36 @@ export const postAnswer = (answerData) => async (dispatch) => {
         console.log(error);
     }
 
+}
+
+export const deleteQuestionAction = (id) => async (dispatch) => {
+
+    try {
+        const { data } = await axios.delete(`${process.env.REACT_APP_API}deletequestion/${id}`)
+        dispatch(getAllQuestionAction());
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+export const deleteAnswerAction = (id, answerId, noOfAnswer) => async (dispatch) => {
+    try {
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}deleteanswer/${id}`, { id, answerId, noOfAnswer })
+        dispatch(getAllQuestionAction());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const voteQuestionAction = (id, value, userId) => async (dispatch) => {
+    try {
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}vote/${id}`, { value, userId })
+        dispatch(getAllQuestionAction())
+    } catch (error) {
+        console.log(error);
+
+
+        
+    }
 }

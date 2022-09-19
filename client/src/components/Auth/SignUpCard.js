@@ -33,11 +33,11 @@ const SignUpCard = ({ toggleCardFunc }) => {
                 </div>
                 <div>
                     <p>Email</p>
-                    <input type="text" onChange={handleCred} name="email" />
+                    <input type="email" onChange={handleCred} name="email" />
                 </div>
                 <div>
                     <p>Password</p>
-                    <input type="text" onChange={handleCred} name="password" />
+                    <input type="password" onChange={handleCred} name="password" />
                 </div>
                 <div className='tc'>
                     <input type="checkbox" name="tc" onChange={() => setchecked(!checked)} checked={checked} />

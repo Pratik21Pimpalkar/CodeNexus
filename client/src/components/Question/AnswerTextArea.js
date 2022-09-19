@@ -9,19 +9,18 @@ import { useNavigate } from 'react-router-dom'
 const AnswerTextArea = ({ que }) => {
     const navigate = useNavigate();
     var User = useSelector(state => state.currentUserReducer)
-
     const dispatch = useDispatch();
     const [ans, setAns] = useState("")
     const handleAnswer = () => {
         if (User === null) {
             window.alert("Login to answer the question");
-            navigate('/')
             return;
         }
         if (ans === "") {
             window.alert("Enter the answer before submitting    ");
         } else {
-            dispatch(postAnswer({ id: que._id, noOfAnswer:que.answer.length+1,answerBody:ans,userAnswer:User.user.name}))
+            dispatch(postAnswer({ id: que._id, userId: que.userId, noOfAnswer: que.answer.length + 1, answerBody: ans, userAnswer: User.user.name }))
+            setAns('')
         }
     }
     return (

@@ -60,5 +60,9 @@ font-size: 0.713rem;
         border-right: 0.17rem solid #f48225;
             }
 }
+
+@media screen  and (max-width:400px){
+    min-height: initial;
+}
 `
 export default Sidebar

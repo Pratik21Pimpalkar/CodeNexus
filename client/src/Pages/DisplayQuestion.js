@@ -8,18 +8,18 @@ import QuestionDetails from '../components/Question/QuestionDetails'
 const DisplayQuestion = () => {
   return (
     <Container maxWidth='lg'>
-    <Grid container>
-      <Grid item md={2}>
-        <Sidebar />
+      <Grid container>
+        <Grid item md={2} xs={3}>
+          <Sidebar />
+        </Grid>
+        <Grid item md={7} xs={9}>
+          <QuestionDetails  />
+        </Grid>
+        <Grid item md={3} xs={12}>
+          <Widget />
+        </Grid>
       </Grid>
-      <Grid item md={7}>
-        <QuestionDetails/>
-      </Grid>
-      <Grid item md={3}>
-        <Widget />
-      </Grid>
-    </Grid>
-  </Container>
+    </Container>
   )
 }
 

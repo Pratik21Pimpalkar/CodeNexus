@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 import styled from 'styled-components'
 const Questions = ({ questionHead, questionList }) => {
 
@@ -25,7 +26,7 @@ const Questions = ({ questionHead, questionList }) => {
                                     width: '70%',textAlign: "left",paddingLeft:0
                                 }}>
                                     {que?.questionTags.map((tag) => <span className='tags'>{tag}</span>)}</div>
-                                    <span className='time'>{que?.postedOn}</span>
+                                    <span className='time'>{moment(que?.postedOn).fromNow()}</span>
                                 </div>
                             </div>
                         </div>

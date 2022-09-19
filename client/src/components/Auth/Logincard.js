@@ -34,11 +34,11 @@ const Logincard = ({ toggleCardFunc }) => {
             <div className='authWrap'>
                 <div>
                     <p>Email</p>
-                    <input type="text" name='email' onChange={handleCred} value={user.email} />
+                    <input type="email" name='email' onChange={handleCred} value={user.email} />
                 </div>
                 <div>
                     <p>Password</p>
-                    <input type="text" name='password' onChange={handleCred} value={user.password} />
+                    <input type="password" name='password' onChange={handleCred} value={user.password} />
                 </div>
                 <div className='login-button'>{
                     (user.email !== '' && user.password !== '') ?

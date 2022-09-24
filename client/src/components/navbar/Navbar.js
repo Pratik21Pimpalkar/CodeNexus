@@ -1,19 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import logo from "../../Assets/logo-stackoverflow.png"
 import { Container } from '@mui/system'
+import { useNavigate } from 'react-router-dom'
 import SearchIcon from '@mui/icons-material/Search';
 import { Button } from '@mui/material'
+import decode from 'jwt-decode'
 import { Link } from 'react-router-dom'
 import UserLoginToggle from './UserLoginToggle';
 import { currentUser } from '../../redux/actions/authActions'
+import { UserContext } from '../../context'
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useContext(UserContext)
   var User = useSelector((state) => state.currentUserReducer)
-
+  const handleLogout = () => {
+    setIsLogin(false);
+    dispatch({
+      type: "LOGOUT"
+    })
+    dispatch(currentUser(null))
+    navigate('/')
+  }
   useEffect(() => {
+    const token = User?.token
+    if (token) {
+      const decodeToken = decode(token)
+      if (decodeToken.exp * 1000 < new Date.getTime()) {
+        handleLogout();
+      }
+    }
     dispatch(currentUser(JSON.parse(localStorage.getItem('Profile'))))
   }, [dispatch])
 
@@ -39,7 +58,7 @@ const Navbar = () => {
             <SearchIcon />
             <input type="text" placeholder='Search...' />
           </div>
-          {User ? <UserLoginToggle /> :
+          {User ? <UserLoginToggle handleLogout={handleLogout} /> :
             <>
               <div className='login'>
                 <Link to='/auth'>

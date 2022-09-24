@@ -39,7 +39,7 @@ const Answer = ({ answerData }) => {
                                 paddingTop: "1rem"
                             }}> {ans.answerBody}</p>
                             <div style={{ position: 'relative', height: "2rem", padding: "2.1rem" }}>
-                                <div style={{ position: 'absolute', bottom: 0 }}>
+                                <div style={{ position: 'relative', bottom: 0 }}>
                                     <button className='deleteShare' onClick={handleShare} >Share</button>
                                     {User?.user?._id === ans?.userId && <button onClick={() => handleDelete(ans?._id, answerData.noOfAnswer)} className='deleteShare'>Delete</button>}</div>
                                 <div style={{ position: "absolute", bottom: 0, right: 0 }}>

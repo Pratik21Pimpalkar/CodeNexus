@@ -1,7 +1,7 @@
 import axios from 'axios';
 export const askQuestionAction = (questionData) => async (dispatch) => {
     try {
-        const { data } = await axios.post(`${process.env.REACT_APP_API}askquestion`, questionData)
+        const { data } = await axios.post(`${process.env.REACT_APP_API}askquestion`, questionData, )
         dispatch({
             type: "ASK_QUESTION",
             payload: data
@@ -44,7 +44,7 @@ export const getAllQuestionAction = () => async (dispatch) => {
 export const postAnswer = (answerData) => async (dispatch) => {
     try {
         const { id, userId, noOfAnswer, answerBody, userAnswer } = answerData
-        const { data } = await axios.patch(`${process.env.REACT_APP_API}postanswer/${id}`, { userId, noOfAnswer, answerBody, userAnswer })
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}postanswer/${id}`, { userId, noOfAnswer, answerBody, userAnswer }, )
         dispatch({
             type: "POST_ANSWER",
             payload: data
@@ -59,7 +59,7 @@ export const postAnswer = (answerData) => async (dispatch) => {
 export const deleteQuestionAction = (id) => async (dispatch) => {
 
     try {
-        const { data } = await axios.delete(`${process.env.REACT_APP_API}deletequestion/${id}`)
+        const { data } = await axios.delete(`${process.env.REACT_APP_API}deletequestion/${id}`, )
         dispatch(getAllQuestionAction());
     } catch (error) {
         console.log(error);
@@ -69,7 +69,7 @@ export const deleteQuestionAction = (id) => async (dispatch) => {
 
 export const deleteAnswerAction = (id, answerId, noOfAnswer) => async (dispatch) => {
     try {
-        const { data } = await axios.patch(`${process.env.REACT_APP_API}deleteanswer/${id}`, { id, answerId, noOfAnswer })
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}deleteanswer/${id}`, { id, answerId, noOfAnswer }, )
         dispatch(getAllQuestionAction());
     } catch (error) {
         console.log(error);
@@ -78,12 +78,12 @@ export const deleteAnswerAction = (id, answerId, noOfAnswer) => async (dispatch)
 
 export const voteQuestionAction = (id, value, userId) => async (dispatch) => {
     try {
-        const { data } = await axios.patch(`${process.env.REACT_APP_API}vote/${id}`, { value, userId })
+        const { data } = await axios.patch(`${process.env.REACT_APP_API}vote/${id}`, { value, userId }, )
         dispatch(getAllQuestionAction())
     } catch (error) {
         console.log(error);
 
 
-        
+
     }
 }

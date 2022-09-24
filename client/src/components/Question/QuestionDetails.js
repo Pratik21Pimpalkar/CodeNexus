@@ -50,7 +50,7 @@ const QuestionDetails = () => {
                                     <div className="questionMainBody" style={{ flex: 1, position: 'relative' }}>
                                         <p style={{ marginTop: "1.1rem", fontSize: "0.89rem" }}> {que.questionBody}</p>
                                         {
-                                            que.questionTags.map((tag, index) => <span key={index}>{tag}</span>)}<div style={{ position: 'absolute', bottom: 0 }}>
+                                            que.questionTags.map((tag, index) => <span key={index}>{tag}</span>)}<div style={{ position: 'relative', bottom: 0 }}>
                                             <button className='deleteShare' onClick={handleShare} >Share</button>
                                             {User?.user?._id === que?.userId && <button onClick={() => handleDelete(que._id)} className='deleteShare'>Delete</button>}</div>
                                         <div style={{ position: 'absolute', right: 0, bottom: 0, }}>

@@ -21,13 +21,16 @@ const Sidebar = () => {
                     <p>Questions</p>
                 </div>
             </Link>
-            <div className='subTabs'>
-                <p>Tags</p>
-            </div>
-            <div className='subTabs'>
-                <p>User</p>
-            </div>
-
+            <Link to='/tags'>
+                <div className='subTabs'>
+                    <p>Tags</p>
+                </div>
+            </Link>
+            <Link to='/users'>
+                <div className='subTabs'>
+                    <p>User</p>
+                </div>
+            </Link>
         </SidebarWrapper>
 
     )

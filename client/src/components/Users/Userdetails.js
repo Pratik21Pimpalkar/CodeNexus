@@ -6,19 +6,41 @@ import EditIcon from '@mui/icons-material/Edit';
 import styled from 'styled-components'
 import { fetchAllUser } from '../../redux/actions/authActions'
 import UserUpdate from './UserUpdate';
+import 'leaflet/dist/leaflet.css'
+import { Button } from '@mui/material';
+import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import L from "leaflet"
+
 
 const Userdetails = () => {
   var users = useSelector(state => state.allUserReducer);
   var currentuser = useSelector(state => state.currentUserReducer);
   const { id } = useParams();
+  const [loc, setLoc] = useState({
+    lat: null, long: null
+  })
   const [profile, setProfile] = useState(true);
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
   useEffect(() => {
     dispatch(fetchAllUser())
-    var array = users.filter((user) => user._id === id)
+    const array = users.filter((user) => user._id === id)
     setUser(array[0]);
   }, [id, dispatch])
+
+  const getIcon = (_iconSize) => {
+    return L.icon({
+      iconUrl: require('../../Assets/marker.png'),
+      iconSize: [_iconSize]
+    })
+  }
+  const getLoc = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (pos) => {
+        setLoc({ lat: pos.coords.latitude, long: pos.coords.longitude })
+      })
+    }
+  }
   return (
     <div>
       {profile ?
@@ -32,7 +54,7 @@ const Userdetails = () => {
             <div className='userdetailcard'>
               <div style={{ display: 'flex', gap: '1rem' }}>
                 <div className='nameInitals'>
-                  <p>{user?.name[0].toUpperCase()}</p>
+                  <p>{user?.name[0]?.toUpperCase()}</p>
                 </div>
                 <div className='userDetails'>
                   <p className='name'>{user?.name}</p>
@@ -40,13 +62,37 @@ const Userdetails = () => {
                 </div>
               </div>
               <div className='about'>
+                <div>
+                  {user?.tags.map((tag, index) => (<span key={index} className="tags">{tag}</span>))}
+                </div>
                 <p style={{ fontSize: "1rem", fontWeight: 500 }}>About</p>
                 <p style={{ fontSize: "0.8rem", }}>{user?.about}</p>
               </div>
+              <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+                {
+                  currentuser?.user._id === user?._id ? <>
+                    {loc.lat === null ? "" : <MapContainer center={[loc.lat, loc.long]} zoom={12} scrollWheelZoom={false} style={{ width: '25rem', height: "25rem" }}>
+                      <TileLayer
+                        attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+                        url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=cyi0cHzTrF6ZAWTg78OV"
+                      />
+                      <Marker icon={getIcon(50)} position={[loc.lat, loc.long]} >
+                        <Popup>
+                          {<p>{loc.lat}{", "}{loc.long}</p>}
+                        </Popup>
+                      </Marker>
+                    </MapContainer>}
+
+                    <Button style={{ marginTop: "1.52rem  ", fontSize: "0.81rem" }} variant={'contained'} onClick={getLoc}> Get your current location here  </Button></> : ""
+                }
+              </div>
+
+
             </div>
           }
-        </UserdetailsWrapper> : <UserUpdate />}
-    </div>
+        </UserdetailsWrapper> : <UserUpdate />
+      }
+    </div >
   )
 }
 
@@ -103,6 +149,17 @@ padding: 2rem;
       font-size: 0.9rem;
     }
   }
+}
+.tags{
+  display: inline-block;
+    color:#2C5877;
+    border-radius: 0.188rem;
+    padding: 0.313rem 0.375rem;
+    margin: 0.5rem 0.2rem;
+    text-transform: lowercase;
+    background: #D0E3F1;
+    font-weight: 500;
+    font-size: 0.75rem;
 }
 `
 

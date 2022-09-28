@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { currentUser, fetchAllUser, updateUser } from '../../redux/actions/authActions'
 const UserUpdate = () => {
@@ -10,6 +10,7 @@ const UserUpdate = () => {
     var users = useSelector(state => state.allUserReducer);
     const User = useSelector(state => state.currentUserReducer)
     const [name, setName] = useState("")
+    const navigate = useNavigate()
     const [about, setAbout] = useState("")
     const [user, setUser] = useState(null);
     const [tags, setTags] = useState("")
@@ -19,6 +20,11 @@ const UserUpdate = () => {
         setUser(array[0]);
     }, [dispatch])
     const submitData = () => {
+        if (name === '' || about === '' || tags === '') {
+            window.alert("Fill all fields")
+            return;
+        }
+
         if (tags.length === 0)
             dispatch(updateUser(User.user._id, { name, about, tags: User.user?.tags }))
         else
@@ -26,6 +32,7 @@ const UserUpdate = () => {
 
         dispatch(currentUser(JSON.parse(localStorage.getItem('Profile'))))
         dispatch(fetchAllUser())
+        navigate('/users')
 
     }
     return (
@@ -37,7 +44,7 @@ const UserUpdate = () => {
                 <div style={{ display: 'flex', gap: '1rem' }}>
 
                     <div className='nameInitals'>
-                        <p>{user?.name[0].toUpperCase()}</p>
+                        <p>{user?.name[0]?.toUpperCase()}</p>
                     </div>
                     <div className='userDetails'>
                         <p className='name'>{user?.name}</p>

@@ -10,7 +10,7 @@ const LoginPage = () => {
   return (
     <div>
       {
-        toggleCard ?
+        !toggleCard ?
           <Logincard toggleCardFunc={toggleCardFunc} /> :
           <SignUpCard toggleCardFunc={toggleCardFunc} />
       }

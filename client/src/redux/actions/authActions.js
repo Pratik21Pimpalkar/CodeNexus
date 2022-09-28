@@ -46,7 +46,8 @@ export const updateUser = (id, {name,about,tags}) => async (dispatch) => {
         const { data } = await axios.patch(`${process.env.REACT_APP_API}update/${id}`,{name,about,tags});
         dispatch({
             type: "UPDATE_USER", payload: data
-        })
+        })  
+           
     } catch (error) {
         console.log(error);
     }

@@ -9,7 +9,7 @@ import { Button } from '@mui/material'
 import decode from 'jwt-decode'
 import { Link } from 'react-router-dom'
 import UserLoginToggle from './UserLoginToggle';
-import { currentUser } from '../../redux/actions/authActions'
+import { currentUser, fetchAllUser } from '../../redux/actions/authActions'
 import { UserContext } from '../../context'
 
 const Navbar = () => {
@@ -33,6 +33,7 @@ const Navbar = () => {
         handleLogout();
       }
     }
+    dispatch(fetchAllUser())
     dispatch(currentUser(JSON.parse(localStorage.getItem('Profile'))))
   }, [dispatch])
 
@@ -44,7 +45,7 @@ const Navbar = () => {
             <img src={logo} alt="logo" />
           </div>
         </Link>
-        <div className='About'>
+        {/* <div className='About'>
           <p >About</p>
         </div>
         <div className='Products'>
@@ -52,7 +53,7 @@ const Navbar = () => {
         </div>
         <div className='For-teams'>
           <p>For Teams</p>
-        </div>
+        </div> */}
         <div className='auth'>
           <div className='search'>
             <SearchIcon />

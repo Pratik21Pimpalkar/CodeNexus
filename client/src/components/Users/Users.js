@@ -11,10 +11,10 @@ const Users = () => {
     <UserWrapper>
       {
         allUser.map((user) => (
-          <Link key={user._id} to={`/users/${user._id}`}>
+          <Link key={user._id} to={`/users/${user?._id}`}>
             <div className="usersCard">
-              <div className='logo'><p >{user.name[0].toUpperCase()}</p></div>
-              <p className='name'>{user.name}</p>
+              <div className='logo'><p >{user?.name[0]?.toUpperCase()}</p></div>
+              <p className='name'>{user?.name}</p>
             </div>
           </Link>))
       }

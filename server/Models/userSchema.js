@@ -8,6 +8,7 @@ const userSchema = Schema({
     about: { type: String, },
     tags: { type: [String] },
     joinedOn: { type: Date, default: Date.now, },
+    phoneNo: { type: Number }
 })
 
 export default mongoose.model('User', userSchema)

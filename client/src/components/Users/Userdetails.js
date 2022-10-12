@@ -71,12 +71,12 @@ const Userdetails = () => {
               <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
                 {
                   currentuser?.user._id === user?._id ? <>
-                    {loc.lat === null ? "" : <MapContainer center={[loc.lat, loc.long]} zoom={12} scrollWheelZoom={false} style={{ width: '25rem', height: "25rem" }}>
+                    {loc.lat === null ? "" : <MapContainer center={[loc.lat, loc.long]} zoom={14} scrollWheelZoom={false} style={{ width: '25rem', height: "25rem" }}>
                       <TileLayer
                         attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
                         url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=cyi0cHzTrF6ZAWTg78OV"
                       />
-                      <Marker icon={getIcon(50)} position={[loc.lat, loc.long]} >
+                      <Marker icon={getIcon(20)} position={[loc.lat, loc.long]} >
                         <Popup>
                           {<p>{loc.lat}{", "}{loc.long}</p>}
                         </Popup>

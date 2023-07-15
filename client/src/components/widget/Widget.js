@@ -15,13 +15,13 @@ const Widget = () => {
                     <div>
                         <CreateIcon /><p>The many problems with implementing Single Sign-On</p></div>
                     <div>
-                        <CreateIcon /><p>Hackathons and free pizza: All about Stack Overflow’s new Student Ambassador...</p> </div>
+                        <CreateIcon /><p>Hackathons and free pizza: All about CodeNexus's new Student Ambassador...</p> </div>
                 </div>
                 <div className='widgetTitle'>
                     <p>Featured on Meta</p>
                 </div>
                 <div className='widgetContent'>
-                    <div><ChatBubbleOutlineIcon style={{ color: "#46A2D9" }} />  <p>Announcing the Stack Overflow Student Ambassador Program</p></div>
+                    <div><ChatBubbleOutlineIcon style={{ color: "#46A2D9" }} />  <p>Announcing the CodeNexus Student Ambassador Program</p></div>
                     <div> <ChatBubbleOutlineIcon style={{ color: "#46A2D9" }} />     <p> Google Analytics 4 (GA4) upgrade</p></div>
                 </div>
             </WidgetWrapper>

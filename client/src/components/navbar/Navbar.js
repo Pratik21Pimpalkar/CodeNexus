@@ -42,7 +42,8 @@ const Navbar = () => {
       <Container maxWidth={'lg'} className="nav">
         <Link to='/'>
           <div className='logo'>
-            <img src={logo} alt="logo" />
+            {/* <img src={logo} alt="logo" /> */}
+            CodeNexus
           </div>
         </Link>
         {/* <div className='About'>
@@ -92,6 +93,9 @@ border-top: 0.18rem solid #f48225;
       gap: 2rem;
       
       .logo{
+        font-weight: bold;
+        font-size: larger;
+        
         img{
         width: 9rem; }  
       }
